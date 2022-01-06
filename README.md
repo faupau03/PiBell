@@ -10,7 +10,7 @@ Therefore most of the advertised features are not yet implemented.
 - webRTC server: two way audio
 
 
-# PiBell UI
+# PiBell (backend)
   
 <img src="https://raw.githubusercontent.com/faupau03/PiBell/master/Logo.webp" alt="drawing" width="200"/>
   
