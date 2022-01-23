@@ -4,27 +4,11 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
-
+import os
 
 from queue import Queue
 from struct import pack, calcsize
 from datetime import datetime
-
-PAGE="""\
-<html>
-<head>
-<title>picamera MJPEG streaming demo</title>
-</head>
-<body>
-<h1>PiCamera MJPEG Streaming Demo</h1>
-<img src="stream.mjpg" width="640" height="480" />
-<audio
-        autoplay controls preload="none" type="audio/x-wav"
-        src="/stream.wav">
-    </audio>
-</body>
-</html>
-"""
 
 
 class StreamingOutput(object):
@@ -80,7 +64,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     output = StreamingOutput()
     camera.start_recording(output, format='mjpeg')
     try:
-        address = ('', 8000)
+        address = ('', os.environ.get('VIDEO_PORT', 8000))
         server = StreamingServer(address, StreamingHandler)
         server.serve_forever()
     finally:
