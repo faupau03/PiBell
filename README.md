@@ -6,8 +6,8 @@ Therefore most of the advertised features are not yet implemented.
 
 - Supports all major browsers (Chrome, Firefox, Safari) > not yet tested
 - Support Homeassistant (mqtt) > not yet implemented
-- Full-featured: Near-Real-time camera feed
-- webRTC server: two way audio
+- Full-featured: Real-time camera feed
+- webRTC server: two way audio (provided by uv4l container/service)
 
 
 # PiBell (backend)
@@ -31,7 +31,6 @@ Therefore most of the advertised features are not yet implemented.
 Change the following lines according to your needs  
 `DURATION = <seconds>                   #Duration of a session. 0 for continuous session`  
 `DELAY = <milliseconds>                 #between button press/opening webrtc and sending notification to ex. homeassistant`  
-`WEBRTC_PORT = <port from pi>`  
 `VIDEO_PORT = <port from video feed>`  
 `MQTT_PORT = <PORT of your mqtt server connected to homeassistant>`  
 `MQTT_USER = <Your mqtt user>           #leave empty if no authentication required`  
