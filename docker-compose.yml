@@ -1,0 +1,10 @@
+version: "2"
+services:
+  uv4l:
+    build: uv4l
+  pibell:
+    build: .
+    environment:
+      - VIDEO_PORT = "8000"
+    expose:
+      - "8000"
