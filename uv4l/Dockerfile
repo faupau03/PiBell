@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt update -y && apt upgrade -y
-RUN curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
-RUN echo "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" | sudo tee /etc/apt/sources.list.d/uv4l.list
+RUN curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc |  apt-key add -
+RUN echo "deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" | tee /etc/apt/sources.list.d/uv4l.list
 RUN apt update -yes
 RUN apt install uv4l uv4l-webrtc uv4l-server
 
