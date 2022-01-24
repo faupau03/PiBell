@@ -1,5 +1,6 @@
 import io
 import picamera
+import ssl
 import logging
 import socketserver
 from threading import Condition
@@ -66,6 +67,11 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
     try:
         address = ('', os.environ.get('VIDEO_PORT', 8000))
         server = StreamingServer(address, StreamingHandler)
+        server.socket = ssl.wrap_socket(server.socket,
+                                        server_side=True,
+                                        certfile='cert.pem',
+                                        keyfile='key.pem.',
+                                        ssl_version=ssl.PROTOCOL_TLS)
         server.serve_forever()
     finally:
         camera.stop_recording()
