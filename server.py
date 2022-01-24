@@ -70,7 +70,7 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
         server.socket = ssl.wrap_socket(server.socket,
                                         server_side=True,
                                         certfile='cert.pem',
-                                        keyfile='key.pem.',
+                                        keyfile='key.pem',
                                         ssl_version=ssl.PROTOCOL_TLS)
         server.serve_forever()
     finally:
