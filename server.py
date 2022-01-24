@@ -6,6 +6,8 @@ import socketserver
 from threading import Condition
 from http import server
 import os
+import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 
 from queue import Queue
 from struct import pack, calcsize
@@ -53,9 +55,34 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning(
                     'Removed streaming client %s: %s',
                     self.client_address, str(e))
+        elif self.path == '/open':
+            client.publish("homeassistant/pibell/state", "ON")
+            self.send_response(200)
         else:
             self.send_error(404)
             self.end_headers()
+
+
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+    # Send discovery message to homeassistant
+    client.publish("homeassistant/binary_sensor/pibell/config", '{"name": "pibell", "device_class": "binary_sensor", "state_topic": "homeassistant/binary_sensor/pibell/state"}')
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print(msg.topic+" "+str(msg.payload))
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.connect(os.environ.get("MQTT_HOST"), os.environ.get("MQTT_PORT"), 60)
+
+
+
+
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
@@ -73,5 +100,6 @@ with picamera.PiCamera(resolution='640x480', framerate=24) as camera:
                                         keyfile=os.path.join(os.path.abspath(os.path.dirname(__file__)) + '/key.pem'),
                                         ssl_version=ssl.PROTOCOL_TLS)
         server.serve_forever()
+        client.loop_forever()
     finally:
         camera.stop_recording()

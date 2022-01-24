@@ -31,7 +31,8 @@ Therefore most of the advertised features are not yet implemented.
 Change the following lines according to your needs  
 `DURATION = <seconds>                   #Duration of a session. 0 for continuous session`  
 `DELAY = <milliseconds>                 #between button press/opening webrtc and sending notification to ex. homeassistant`  
-`VIDEO_PORT = <port from video feed>`  
+`VIDEO_PORT = <port from video feed>`
+`MQTT_HOST = <HOST of your mqtt server connected to homeassistant>`  
 `MQTT_PORT = <PORT of your mqtt server connected to homeassistant>`  
 `MQTT_USER = <Your mqtt user>           #leave empty if no authentication required`  
 `MQTT_PASSWORD = <Your mqtt password>   #leave empty if no authentication required`  
