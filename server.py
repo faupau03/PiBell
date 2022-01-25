@@ -77,7 +77,12 @@ def on_message(client, userdata, msg):
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-
+mqtt_host = "192.168.178.52"
+mqtt_port = 1883
+if (os.getenv('MQTT_HOST')):
+    mqtt_host = os.getenv('MQTT_HOST')
+if (os.getenv('MQTT_PORT')):
+    mqtt_port = int(os.getenv('MQTT_PORT'))
 client.connect(os.environ.get("MQTT_HOST"), os.environ.get("MQTT_PORT"), 60)
 
 
