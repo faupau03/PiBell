@@ -83,7 +83,7 @@ if (os.getenv('MQTT_HOST')):
     mqtt_host = os.getenv('MQTT_HOST')
 if (os.getenv('MQTT_PORT')):
     mqtt_port = int(os.getenv('MQTT_PORT'))
-client.connect(os.environ.get("MQTT_HOST"), os.environ.get("MQTT_PORT"), 60)
+client.connect(mqtt_host, mqtt_port, 60)
 
 
 
